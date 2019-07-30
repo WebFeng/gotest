@@ -1,0 +1,25 @@
+问题描述:
+load plugin crash fatal error: runtime: no plugin module data
+
+ISSUES链接:
+https://github.com/golang/go/issues/33072
+
+复现步骤:
+
+1. clone
+$ git clone https://github.com/WebFeng/gotest
+
+2. cd
+$ cd gotest/go-issues/no-plugin-module-data-crash/
+
+3. 生成a.so
+$ go build -o a.so -buildmode=plugin plugin/*.go
+
+4. 修改公共包,增加一行注释
+$ echo "//" >> module/main.go
+
+5. 生成b.so
+$ go build -o b.so -buildmode=plugin plugin/*.go
+
+6. 复现问题
+$ go run main.go
